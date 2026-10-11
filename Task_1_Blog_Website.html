@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Blog Website | Stories & Ideas</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #fffaf5;
+            color: #292b35;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #345995, #6c63a8);
+            color: white;
+            padding: 34px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 38px;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            margin: 8px 0 0;
+            color: #f0eaff;
+        }
+
+        nav {
+            background-color: #292b45;
+            padding: 14px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 5;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 16px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #ffd6a5;
+        }
+
+        .intro {
+            background: linear-gradient(120deg, #f6e8df, #e9eaff);
+            text-align: center;
+            padding: 55px 20px;
+        }
+
+        .intro h2 {
+            color: #345995;
+            font-size: 32px;
+            margin: 0 0 10px;
+        }
+
+        .intro p {
+            max-width: 550px;
+            margin: 0 auto;
+            color: #5e6170;
+        }
+
+        .search-area {
+            text-align: center;
+            padding: 28px 20px 16px;
+        }
+
+        #search {
+            width: 90%;
+            max-width: 440px;
+            padding: 13px 16px;
+            border: 1px solid #dedce8;
+            border-radius: 25px;
+            outline: none;
+            background: white;
+            box-shadow: 0 4px 15px rgba(40, 40, 70, 0.06);
+        }
+
+        #search:focus {
+            border-color: #6c63a8;
+        }
+
+        .categories {
+            text-align: center;
+            margin: 5px 0 28px;
+        }
+
+        .categories button {
+            background-color: white;
+            color: #345995;
+            border: 1px solid #d9d8e7;
+            padding: 9px 17px;
+            margin: 4px;
+            border-radius: 22px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .categories button:hover {
+            background-color: #345995;
+            color: white;
+            border-color: #345995;
+        }
+
+        .section-title {
+            text-align: center;
+            color: #292b45;
+            font-size: 30px;
+            margin: 20px 0 25px;
+        }
+
+        .blog-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+            padding: 10px 20px 40px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .blog-card {
+            background-color: white;
+            width: 310px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 18px rgba(40, 40, 70, 0.08);
+            border: 1px solid #efedf3;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(40, 40, 70, 0.14);
+        }
+
+        .blog-card img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .blog-card small {
+            display: block;
+            margin: 16px 17px 0;
+            color: #8a6c9f;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .blog-card h3 {
+            color: #345995;
+            margin: 10px 17px;
+            font-size: 21px;
+        }
+
+        .blog-card p {
+            margin: 0 17px 18px;
+            color: #6e707c;
+            font-size: 14px;
+        }
+
+        .blog-card button {
+            margin: 0 17px 20px;
+            padding: 10px 15px;
+            background-color: #e07a5f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .blog-card button:hover {
+            background-color: #c96349;
+        }
+
+        #message {
+            text-align: center;
+            color: #777;
+            padding: 10px 20px;
+        }
+
+        .extra-controls {
+            max-width: 1100px;
+            margin: 0 auto 18px;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .extra-controls button {
+            border: 1px solid #dedce8;
+            background: white;
+            color: #345995;
+            padding: 9px 13px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .extra-controls button:hover {
+            background: #345995;
+            color: white;
+        }
+
+        .blog-card .like-button {
+            background: #fff0f0;
+            color: #c94c66;
+            margin-left: 0;
+            border: 1px solid #f3d4da;
+        }
+
+        .blog-card .like-button.liked {
+            background: #c94c66;
+            color: white;
+        }
+
+        .welcome-message {
+            display: none;
+            background: #fff0cf;
+            color: #654b18;
+            padding: 12px 18px;
+            text-align: center;
+        }
+
+        .newsletter {
+            background: #fff4eb;
+            padding: 35px 20px;
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            color: #345995;
+            margin-top: 0;
+        }
+
+        .newsletter input {
+            width: 240px;
+            max-width: 90%;
+            padding: 11px;
+            border: 1px solid #dedce8;
+            border-radius: 5px;
+            margin: 5px;
+        }
+
+        .newsletter button {
+            padding: 11px 16px;
+            border: none;
+            border-radius: 5px;
+            background: #e07a5f;
+            color: white;
+            cursor: pointer;
+        }
+
+        #newsletterMessage {
+            font-size: 14px;
+            color: #345995;
+            font-weight: bold;
+        }
+
+        body.dark-mode {
+            background: #202330;
+            color: #f4f4f8;
+        }
+
+        body.dark-mode .intro,
+        body.dark-mode .blog-card,
+        body.dark-mode .about,
+        body.dark-mode .search-area,
+        body.dark-mode .extra-controls button {
+            background: #2b2f40;
+            color: #f4f4f8;
+        }
+
+        body.dark-mode .intro h2,
+        body.dark-mode .blog-card h3,
+        body.dark-mode .about h2,
+        body.dark-mode .section-title {
+            color: #c6caff;
+        }
+
+        body.dark-mode .intro p,
+        body.dark-mode .blog-card p,
+        body.dark-mode .about p {
+            color: #d0d2dd;
+        }
+
+        body.dark-mode #search,
+        body.dark-mode .newsletter input {
+            background: #202330;
+            color: white;
+            border-color: #555b70;
+        }
+
+        body.dark-mode .newsletter {
+            background: #292d3d;
+        }
+
+        .about {
+            background-color: #eeedf9;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .about h2 {
+            color: #345995;
+            font-size: 28px;
+        }
+
+        .about p {
+            max-width: 600px;
+            margin: auto;
+            color: #626477;
+        }
+
+        footer {
+            background-color: #292b45;
+            color: white;
+            text-align: center;
+            padding: 22px 15px;
+        }
+
+        footer p {
+            margin: 5px;
+            font-size: 13px;
+        }
+
+        /* Make the page fit small screens */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 30px;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 5px 8px;
+            }
+
+            .intro {
+                padding: 40px 18px;
+            }
+
+            .intro h2 {
+                font-size: 27px;
+            }
+
+            .blog-card {
+                width: 100%;
+                max-width: 360px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>My Blog Website</h1>
+        <p>Stories, ideas and everyday life</p>
+    </header>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#blogs">Articles</a>
+        <a href="#about">About</a>
+    </nav>
+
+    <section class="intro" id="home">
+        <h2>Welcome to My Blog!</h2>
+        <p>Read simple stories about life, travel, creativity and learning.</p>
+    </section>
+
+    <div class="welcome-message" id="welcomeMessage">Welcome back! Happy reading ☀</div>
+
+    <div class="search-area">
+        <input type="text" id="search" placeholder="Search for an article..." onkeyup="searchBlogs()">
+    </div>
+
+    <div class="extra-controls">
+        <span id="postCount">Showing all articles</span>
+        <div>
+            <button onclick="toggleDarkMode()" id="darkButton">🌙 Dark mode</button>
+            <button onclick="showRandomBlog()">🎲 Surprise me</button>
+        </div>
+    </div>
+
+    <div class="categories">
+        <button onclick="filterBlogs('All')">All</button>
+        <button onclick="filterBlogs('Lifestyle')">Lifestyle</button>
+        <button onclick="filterBlogs('Travel')">Travel</button>
+        <button onclick="filterBlogs('Learning')">Learning</button>
+    </div>
+
+    <h2 class="section-title" id="blogs">Latest Blog Posts</h2>
+
+    <div class="blog-container" id="blogContainer">
+        <div class="blog-card" data-category="Lifestyle">
+            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=600&q=80"
+                alt="Coffee on a table">
+            <small>October 8, 2026 | Lifestyle</small>
+            <h3>Enjoy a Slow Morning</h3>
+            <p>Some easy ideas to make your morning calm and happy.</p>
+            <button
+                onclick="readBlog('Enjoy a Slow Morning', 'Start your day slowly. Have a cup of tea, open the window, and take a few minutes for yourself before starting your work.')">Read
+                More</button>
+            <button class="like-button" onclick="toggleLike(this)">♡ Like <span>0</span></button>
+        </div>
+
+        <div class="blog-card" data-category="Travel">
+            <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=600&q=80"
+                alt="Mountains and lake">
+            <small>October 5, 2026 | Travel</small>
+            <h3>A Beautiful Travel Day</h3>
+            <p>Travel can help us find new places and make great memories.</p>
+            <button
+                onclick="readBlog('A Beautiful Travel Day', 'Travel is a great way to explore new places. Take photos, try local food, and enjoy the journey instead of rushing through every plan.')">Read
+                More</button>
+            <button class="like-button" onclick="toggleLike(this)">♡ Like <span>0</span></button>
+        </div>
+
+        <div class="blog-card" data-category="Learning">
+            <img src="https://images.unsplash.com/photo-1455390582262-044cde3a277a?auto=format&fit=crop&w=600&q=80"
+                alt="Notebook and pen">
+            <small>September 29, 2026 | Learning</small>
+            <h3>Learn Something New</h3>
+            <p>Small steps can help us learn new skills every day.</p>
+            <button
+                onclick="readBlog('Learn Something New', 'Choose one small thing to learn each day. Practise it, make mistakes, and try again. Learning takes time, so be patient with yourself.')">Read
+                More</button>
+            <button class="like-button" onclick="toggleLike(this)">♡ Like <span>0</span></button>
+        </div>
+
+        <div class="blog-card" data-category="Lifestyle">
+            <img src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=600&q=80"
+                alt="Cafe table">
+            <small>September 22, 2026 | Lifestyle</small>
+            <h3>Take a Good Break</h3>
+            <p>A short break can help you feel fresh and ready to work.</p>
+            <button
+                onclick="readBlog('Take a Good Break', 'Stand up, drink some water, stretch, or take a short walk. A break does not have to be complicated to help you feel better.')">Read
+                More</button>
+            <button class="like-button" onclick="toggleLike(this)">♡ Like <span>0</span></button>
+        </div>
+
+        <div class="blog-card" data-category="Travel">
+            <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=600&q=80"
+                alt="Sunlight in a forest">
+            <small>September 17, 2026 | Travel</small>
+            <h3>Go for a Walk</h3>
+            <p>Explore your area and notice things you usually miss.</p>
+            <button
+                onclick="readBlog('Go for a Walk', 'Walking is a simple way to explore. You can visit a park, look at the trees, and enjoy some fresh air without needing a big plan.')">Read
+                More</button>
+            <button class="like-button" onclick="toggleLike(this)">♡ Like <span>0</span></button>
+        </div>
+
+        <div class="blog-card" data-category="Learning">
+            <img src="https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=600&q=80"
+                alt="Notebook on a desk">
+            <small>September 10, 2026 | Learning</small>
+            <h3>Make Better Notes</h3>
+            <p>Writing short notes can make studying easier.</p>
+            <button
+                onclick="readBlog('Make Better Notes', 'Write important ideas in your own words. Use short headings and examples. Read your notes again before a test to remember what you learned.')">Read
+                More</button>
+            <button class="like-button" onclick="toggleLike(this)">♡ Like <span>0</span></button>
+        </div>
+    </div>
+
+    <p id="message"></p>
+
+    <section class="newsletter">
+        <h2>Get blog updates ✉</h2>
+        <p>Join the little newsletter for more stories and ideas.</p>
+        <form onsubmit="subscribe(event)">
+            <input type="email" id="emailInput" placeholder="Enter your email" required>
+            <button type="submit">Subscribe</button>
+        </form>
+        <p id="newsletterMessage"></p>
+    </section>
+
+    <section class="about" id="about">
+        <h2>About This Blog</h2>
+        <p>This blog is a small place to share stories, ideas and useful things. Thank you for visiting!</p>
+    </section>
+
+    <footer>
+        <p>My Blog Website | Made with HTML, CSS and JavaScript</p>
+        <p>© 2026 My Blog</p>
+    </footer>
+
+    <script>
+        function searchBlogs() {
+            var input = document.getElementById("search").value.toLowerCase();
+            var cards = document.getElementsByClassName("blog-card");
+            var found = 0;
+
+            for (var i = 0; i < cards.length; i++) {
+                var text = cards[i].innerText.toLowerCase();
+
+                if (text.includes(input)) {
+                    cards[i].style.display = "block";
+                    found++;
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+
+            showMessage(found);
+            document.getElementById("postCount").innerText = "Showing " + found + " article(s)";
+        }
+
+        function filterBlogs(category) {
+            document.getElementById("search").value = "";
+            var cards = document.getElementsByClassName("blog-card");
+            var found = 0;
+
+            for (var i = 0; i < cards.length; i++) {
+                var postCategory = cards[i].getAttribute("data-category");
+
+                if (category === "All" || category === postCategory) {
+                    cards[i].style.display = "block";
+                    found++;
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+
+            showMessage(found);
+            document.getElementById("postCount").innerText = "Showing " + found + " article(s)";
+        }
+
+        function showMessage(numberFound) {
+            var message = document.getElementById("message");
+
+            if (numberFound === 0) {
+                message.innerText = "No articles found. Try another search.";
+            } else {
+                message.innerText = "";
+            }
+        }
+
+        function readBlog(title, text) {
+            var newWindow = window.open("", "_blank");
+
+            if (newWindow) {
+                newWindow.document.write(
+                    "<html><head><title>" + title + "</title>" +
+                    "<meta name='viewport' content='width=device-width, initial-scale=1'>" +
+                    "<style>body{font-family:Arial,sans-serif;max-width:700px;margin:40px auto;padding:20px;line-height:1.7;color:#333}h1{color:#345995}a{color:#345995}</style>" +
+                    "</head><body><h1>" + title + "</h1><p>" + text + "</p><a href='javascript:window.close()'>Close article</a></body></html>"
+                );
+                newWindow.document.close();
+            } else {
+                alert(title + "\\n\\n" + text);
+            }
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+            var button = document.getElementById("darkButton");
+
+            if (document.body.classList.contains("dark-mode")) {
+                button.innerText = "☀ Light mode";
+            } else {
+                button.innerText = "🌙 Dark mode";
+            }
+        }
+
+        function toggleLike(button) {
+            var count = button.querySelector("span");
+            var number = Number(count.innerText);
+
+            if (button.classList.contains("liked")) {
+                button.classList.remove("liked");
+                count.innerText = number - 1;
+                button.innerHTML = "♡ Like <span>" + (number - 1) + "</span>";
+            } else {
+                button.classList.add("liked");
+                count.innerText = number + 1;
+                button.innerHTML = "♥ Liked <span>" + (number + 1) + "</span>";
+            }
+        }
+
+        function showRandomBlog() {
+            var cards = Array.from(document.getElementsByClassName("blog-card"));
+            var visibleCards = cards.filter(function (card) {
+                return card.style.display !== "none";
+            });
+
+            if (visibleCards.length === 0) {
+                alert("No articles to choose from. Try clearing your search first.");
+                return;
+            }
+
+            var chosen = visibleCards[Math.floor(Math.random() * visibleCards.length)];
+            var button = chosen.querySelector("button:not(.like-button)");
+            button.click();
+        }
+
+        function subscribe(event) {
+            event.preventDefault();
+            var email = document.getElementById("emailInput").value;
+            document.getElementById("newsletterMessage").innerText =
+                "Thanks for subscribing, " + email + "! (Demo only)";
+            document.getElementById("emailInput").value = "";
+        }
+
+    </script>
+</body>
+
+</html>
